@@ -86,7 +86,7 @@ const Landing = () => {
       </Head>
       <Header className={landingStyles.discoverHeader}>
         <div className={landingStyles.discoverHeaderTitle}>
-          <Link route="/">
+          <Link route='/'>
             <a>
               <BranchesOutlined className={landingStyles.branches__icon} />
               rootchain
@@ -95,10 +95,10 @@ const Landing = () => {
         </div>
         {isAuthenticated && (
           <div className={landingStyles.discoverHeaderButtons}>
-            <Link route="/discover">
+            <Link route='/discover'>
               <a style={{ margin: '1rem' }}>Campaigns </a>
             </Link>
-            <Link route="/dashboard">
+            <Link route='/dashboard'>
               <a style={{ margin: '1rem' }}>Profile </a>
             </Link>
             <a style={{ margin: '1rem' }} onClick={logOut}>
@@ -118,8 +118,8 @@ const Landing = () => {
               rootchain <span className={landingStyles.copyright}>&copy;</span>
             </h1>
             <h3 className={landingStyles.subtitle}>
-              A transparent and secure smart-funding platform for Grassroots
-              Political Organizations.
+              A transparent, democratized, and secure funding platform for
+              grassroots political campaigns.
             </h3>
             {signInError && <p>Error sigining in with Google.</p>}
             <Button onClick={signIn} className={landingStyles.oauth__button}>
@@ -137,8 +137,8 @@ const Landing = () => {
           <Col md={6} className={landingStyles.feature__item}>
             <h1>Transparency</h1>
             <img
-              alt="knowledge-img"
-              src="/feature-knowledge.png"
+              alt='knowledge-img'
+              src='/feature-knowledge.png'
               className={landingStyles.feature__img}
             />
             <p>
@@ -151,8 +151,8 @@ const Landing = () => {
           <Col md={6} className={landingStyles.feature__item}>
             <h1>Security</h1>
             <img
-              alt="security-img"
-              src="/feature-security.png"
+              alt='security-img'
+              src='/feature-security.png'
               className={landingStyles.feature__img}
             />
             <p>
@@ -165,8 +165,8 @@ const Landing = () => {
           <Col md={6} className={landingStyles.feature__item}>
             <h1>Decentralized</h1>
             <img
-              alt="decentralized-img"
-              src="/feature-decentralized.png"
+              alt='decentralized-img'
+              src='/feature-decentralized.png'
               className={landingStyles.feature__img}
             />
             <p>
