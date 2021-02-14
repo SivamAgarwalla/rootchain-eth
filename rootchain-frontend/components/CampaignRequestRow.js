@@ -54,29 +54,39 @@ const CampaignRequestRow = ({
       <List.Item
         key={request.id}
         actions={[
-          <Button
-            loading={approvingRequest}
-            style={{ color: '#4663ac' }}
-            onClick={() => acceptSpendingRequest(request.firebaseToContractMap)}
-            type='default'
-          >
-            Accept
-          </Button>,
-          <Button
-            loading={finalizingRequest}
-            style={{ color: '#4663ac' }}
-            onClick={() =>
-              finalizeSpendingRequest(request.firebaseToContractMap)
-            }
-            type='default'
-          >
-            Finalize
-          </Button>,
+          <div>
+            {!request.approvalStatus && (
+              <Button
+                loading={approvingRequest}
+                style={{ color: '#4663ac' }}
+                onClick={() =>
+                  acceptSpendingRequest(request.firebaseToContractMap)
+                }
+                type="default"
+              >
+                Accept
+              </Button>
+            )}
+          </div>,
+          <div>
+            {!request.approvalStatus && (
+              <Button
+                loading={finalizingRequest}
+                style={{ color: '#4663ac' }}
+                onClick={() =>
+                  finalizeSpendingRequest(request.firebaseToContractMap)
+                }
+                type="default"
+              >
+                Finalize
+              </Button>
+            )}
+          </div>,
         ]}
       >
         <List.Item.Meta
           avatar={<Avatar src={request.requestCreator.photoURL} />}
-          title={<a href='https://ant.design'>{request.requestCreator.name}</a>}
+          title={<a href="https://ant.design">{request.requestCreator.name}</a>}
           description={
             <div>
               <p>{request.description}</p>
@@ -86,8 +96,8 @@ const CampaignRequestRow = ({
               >{`${request.approvalCount}/${campaignContributorsCount} Approved`}</p>
               {errorApproveMessage.length > 0 && (
                 <Alert
-                  message='Error approving spending request. You have either already approved once or are not a campaign contributor.'
-                  type='error'
+                  message="Error approving spending request. You have either already approved once or are not a campaign contributor."
+                  type="error"
                   closable
                   onClose={() => {}}
                   style={{ margin: 'auto', width: '80%' }}
@@ -95,8 +105,8 @@ const CampaignRequestRow = ({
               )}
               {errorFinalizeMessage.length > 0 && (
                 <Alert
-                  message='Error finalizing spending request. You need to be the campaign manager and have enough approval votings to finalize the request.'
-                  type='error'
+                  message="Error finalizing spending request. You need to be the campaign manager and have enough approval votings to finalize the request."
+                  type="error"
                   closable
                   onClose={() => {}}
                   style={{ margin: 'auto', width: '80%' }}

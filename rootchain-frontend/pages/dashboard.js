@@ -17,59 +17,82 @@ const userPorfileTabList = [
     key: 'active',
     tab: 'Active Campaigns',
   },
+];
+const contributionData = [
   {
-    key: 'past',
-    tab: 'Past Contributions',
+    CampaignName: 'Project 1',
+    AmountContributed: '$1000',
+    AmountColected: '$10000',
   },
   {
-    key: 'pending',
-    tab: 'Pending Approvals',
+    CampaignName: 'Project 2',
+    AmountContributed: '$2000',
+    AmountColected: '$20000',
+  },
+  {
+    CampaignName: 'Project 3',
+    AmountContributed: '$3000',
+    AmountColected: '$30000',
+  },
+  {
+    CampaignName: 'Project 4',
+    AmountContributed: '$4000',
+    AmountColected: '$40000',
   },
 ];
 
-
-
-
-const contributionData = [
-  {CampaignName:"Project 1", AmountContributed:"$1000", AmountColected:"$10000"},
-  {CampaignName:"Project 2", AmountContributed:"$2000", AmountColected:"$20000"},
-  {CampaignName:"Project 3", AmountContributed:"$3000", AmountColected:"$30000"},
-  {CampaignName:"Project 4", AmountContributed:"$4000", AmountColected:"$40000"}
-]
 const Dashboard = () => {
   const [campaignsDetail, setCampaignsDetail] = useState(null);
   const [dashboardTab, setDashboardTab] = useState('active');
-  
-  useEffect(() => {
-    db.collection('campaigns').onSnapshot((snapshot) =>
-      setCampaignsDetail(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
-  }, []);
 
   const firebase = useContext(FirebaseContext);
   const {
+    uid,
+    setUid,
     isAuthenticated,
     setIsAuthenticated,
     displayName,
     setDisplayName,
+    email,
+    setEmail,
     photoURL,
     setPhotoURL,
   } = useContext(UserContext);
   const [didMount, setDidMount] = useState(false);
   const [logOutSuccess, setLogOutSuccess] = useState(false);
+  const [contractAddress, setContractAddress] = useState('');
 
   useEffect(() => {
     if (didMount && !isAuthenticated) {
       window.location.href = '/';
+    } else if (didMount && isAuthenticated) {
+      db.collection('campaigns')
+        .where('campaignCreator.uid', '==', uid)
+        .onSnapshot((snapshot) =>
+          setCampaignsDetail(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          )
+        );
     } else {
       setDidMount(true);
     }
   }, [didMount]);
+
+  useEffect(() => {
+    db.collection('campaigns')
+      .where('campaignCreator.uid', '==', uid)
+      .onSnapshot((snapshot) =>
+        setCampaignsDetail(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
 
   const logOut = async () => {
     const loggedOut = await firebase.logOut();
@@ -77,10 +100,11 @@ const Dashboard = () => {
       removeUserStateWrapper();
     }
   };
-  
 
   const removeUserStateWrapper = () => {
+    setUid('');
     setDisplayName('');
+    setEmail('');
     setPhotoURL('');
     setIsAuthenticated(false);
     localStorage.removeItem('displayName');
@@ -89,15 +113,7 @@ const Dashboard = () => {
   };
 
   const contentListNoTitle = {
-    active: (
-      <ActiveCampaigns campaignsDetail={campaignsDetail} />
-    ),
-    past: (
-      <PastCampaigns contributionData={contributionData} />
-    ),
-    pending: (
-      <PendingApprovals contributionData={contributionData} />
-    )
+    active: <ActiveCampaigns campaignsDetail={campaignsDetail} />,
   };
 
   return (
@@ -110,27 +126,32 @@ const Dashboard = () => {
             alt="profile-pic"
           />
           <div className={dashboardStyles.details}>
-            <p>Name: {displayName}</p>
-            <p>Email: email@gmail.com</p>
-            <p>Ethereum Smart Contact Addres: 0xasjdasjdnaisd</p>
-
+            <div className={dashboardStyles.details__item}>
+              <h1>Name:</h1>
+              <span>{displayName}</span>
+            </div>
+            <div className={dashboardStyles.details__item}>
+              <h1>Email:</h1>
+              <span>{email}</span>
+            </div>
+            <div className={dashboardStyles.details__item}>
+              <h1>ETH Smart Contract Address:</h1>
+              <span>0xD3700c3eD96Bc30caB775f823157Cd96070A5f0D</span>
+            </div>
           </div>
-            {/* <button onClick={logOut}>Logout</button> */}
-          </div>
-          <div className={dashboardStyles.dashboardConsole}>
-            <h1 style={{"margin-left":"22px"}}>Dashboard</h1>
-              <Card
-                style={{ margin: 'auto', width: '100%' }}
-                tabList={userPorfileTabList}
-                activeTabKey={dashboardTab}
-                onTabChange={(key) => {
-                  setDashboardTab(key);
-                }}
-              >
-                {contentListNoTitle[dashboardTab]}
-              </Card>
-          </div>
-         <div>
+        </div>
+        <div className={dashboardStyles.dashboardConsole}>
+          <h1>Dashboard</h1>
+          <Card
+            style={{ margin: 'auto', width: '100%' }}
+            tabList={userPorfileTabList}
+            activeTabKey={dashboardTab}
+            onTabChange={(key) => {
+              setDashboardTab(key);
+            }}
+          >
+            {contentListNoTitle[dashboardTab]}
+          </Card>
         </div>
       </div>
     </Layout>
@@ -138,31 +159,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-{/* <Layout>
-              {campaignID && (
-                <ContributeForm
-                  campaignAddress={campaignAddress}
-                  campaignID={campaignID}
-                />
-              )}
-              <Card
-                style={{ margin: 'auto', width: '100%' }}
-                tabList={userPorfileTabList}
-                activeTabKey={campaignTab}
-                onTabChange={(key) => {
-                  setCampaignTab(key);
-                }}
-              >
-                {contentListNoTitle[campaignTab]}
-              </Card>
-        </Layout> */}
-
-
-          {/* <div className={dashboardStyles.dashboardConsole}> 
-            <button className={dashboardStyles.button}>Active Campaigns</button>
-            <button id ={dashboardStyles.second }className={dashboardStyles.button}>Past Contributions</button>
-            <button id ={dashboardStyles.second }className={dashboardStyles.button}>Pending Approvals</button>
-          </div> */}
-          {/* <div className={dashboardStyles.dashboardTable}>
-            <PastCampaigns contributionData={contributionData} />
-          </div> */}
