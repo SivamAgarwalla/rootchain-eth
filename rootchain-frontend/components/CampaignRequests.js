@@ -28,10 +28,11 @@ const CampaignRequests = ({
       .onSnapshot((snapshot) =>
         setRequests(
           snapshot.docs
-            .filter(
-              (doc) =>
-                contractRequests[doc.data().firebaseToContractMap].complete ===
-                switchToggled
+            .filter((doc) =>
+              contractRequests[doc.data().firebaseToContractMap]
+                ? contractRequests[doc.data().firebaseToContractMap]
+                    .complete === switchToggled
+                : true
             )
             .map((doc) => ({
               id: doc.id,
