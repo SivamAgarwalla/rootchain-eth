@@ -78,8 +78,8 @@ const ContributeForm = ({
       </h4>
       <Form
         {...layout}
-        layout='vertical'
-        name='create-contribution'
+        layout="vertical"
+        name="create-contribution"
         onFinish={onFinish}
         validateMessages={validateMessages}
         form={form}
@@ -87,17 +87,17 @@ const ContributeForm = ({
       >
         <Form.Item
           name={'contributionAmount'}
-          label='Contribute'
+          label="Contribute"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input placeholder='Contribution amount' addonAfter='ether' />
+          <Input placeholder="Contribution amount" addonAfter="ether" />
         </Form.Item>
-        <Form.Item name={'spendingIdeas'} label='Spending Ideas'>
-          <Input.TextArea placeholder='Share your thoughts' />
+        <Form.Item name={'spendingIdeas'} label="Spending Ideas">
+          <Input.TextArea placeholder="Share your thoughts" />
         </Form.Item>
 
         {savingContribution ? (
@@ -105,8 +105,8 @@ const ContributeForm = ({
         ) : (
           <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
             <Button
-              type='primary'
-              htmlType='submit'
+              type="primary"
+              htmlType="submit"
               className={formStyles.contribute__button}
             >
               Contribute
@@ -115,9 +115,9 @@ const ContributeForm = ({
         )}
         {errorMessage.length > 0 && (
           <Alert
-            message='Error Saving Contract'
+            message="Error Saving Contract"
             description={errorMessage}
-            type='error'
+            type="error"
             closable
             onClose={() => {}}
             style={{ margin: 'auto', width: '30%' }}

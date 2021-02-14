@@ -63,6 +63,7 @@
 }
 
 .oauth__button {
+  margin-top: 1rem;
   width: 40%;
   background-color: #4663ac;
   border-radius: 50px;

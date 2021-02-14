@@ -9,27 +9,54 @@ import landingStyles from '../styles/pages/landing.module.css';
 import LandingIllustration from '../public/landing-illustration.svg';
 import { GoogleOutlined } from '@ant-design/icons';
 import { BranchesOutlined } from '@ant-design/icons';
+import firebase from 'firebase';
+import 'firebase/firestore';
+
+const db = firebase.firestore();
 
 const Landing = () => {
   const firebase = useContext(FirebaseContext);
-  const { setDisplayName, setPhotoURL } = useContext(UserContext);
+  const { setUid, setDisplayName, setEmail, setPhotoURL } = useContext(
+    UserContext
+  );
   const [signInError, setSignInError] = useState(false);
 
   const signIn = async () => {
     try {
       const result = await firebase.signIn();
-      const { displayName, photoURL } = result.user;
+      const { uid, email, displayName, photoURL } = await result.user;
       setSignInError(false);
-      setUserStateAndRedirect(displayName, photoURL);
+      writeUserToFirebase(uid, displayName, email, photoURL);
     } catch (error) {
       setSignInError(true);
     }
   };
 
-  const setUserStateAndRedirect = (displayName, photoURL) => {
+  const writeUserToFirebase = (uid, displayName, email, photoURL) => {
+    db.collection('users')
+      .add({
+        uid: uid,
+        displayName: displayName,
+        email: email,
+        photoURL: photoURL,
+      })
+      .then(() => {
+        console.log('User successfully written');
+        setUserStateAndRedirect(uid, displayName, email, photoURL);
+      })
+      .catch((error) => {
+        console.error('Error writing user', error);
+      });
+  };
+
+  const setUserStateAndRedirect = (uid, displayName, email, photoURL) => {
+    setUid(uid);
     setDisplayName(displayName);
+    setEmail(email);
     setPhotoURL(photoURL);
+    localStorage.setItem('uid', uid);
     localStorage.setItem('displayName', displayName);
+    localStorage.setItem('email', email);
     localStorage.setItem('photoURL', photoURL);
     window.location.href = '/dashboard';
   };
@@ -41,7 +68,7 @@ const Landing = () => {
       </Head>
       <Header className={landingStyles.discoverHeader}>
         <div className={landingStyles.discoverHeaderTitle}>
-          <Link route='/'>
+          <Link route="/">
             <a>
               <BranchesOutlined className={landingStyles.branches__icon} />
               rootchain
@@ -74,8 +101,8 @@ const Landing = () => {
           <Col md={8} className={landingStyles.feature__item}>
             <h1>Transparency</h1>
             <img
-              alt='knowledge-img'
-              src='/feature-knowledge.png'
+              alt="knowledge-img"
+              src="/feature-knowledge.png"
               className={landingStyles.feature__img}
             />
             <p>
@@ -88,8 +115,8 @@ const Landing = () => {
           <Col md={8} className={landingStyles.feature__item}>
             <h1>Security</h1>
             <img
-              alt='security-img'
-              src='/feature-security.png'
+              alt="security-img"
+              src="/feature-security.png"
               className={landingStyles.feature__img}
             />
             <p>
@@ -102,8 +129,8 @@ const Landing = () => {
           <Col md={8} className={landingStyles.feature__item}>
             <h1>Decentralized</h1>
             <img
-              alt='decentralized-img'
-              src='/feature-decentralized.png'
+              alt="decentralized-img"
+              src="/feature-decentralized.png"
               className={landingStyles.feature__img}
             />
             <p>
