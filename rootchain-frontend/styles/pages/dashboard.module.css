@@ -1,37 +1,41 @@
 .root {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .accountInfo {
-  font-family: 'Avenir Next' !important;
-  display: flex; 
-  flex-direction: row; 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 32px;
-  position: relative;
-  left:20px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px;
 }
+
 .details {
-  font-family: 'Avenir Next' !important;
-  font-size: 25px !important;
   display: inline-block;
-  position: relative;
-  left:20px;
-  margin-top:20px;
+  margin-left: 30px;
+}
+
+.details__item h1 {
+  display: inline;
+  margin-right: 10px;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.details__item span {
+  font-size: 17px;
+  font-weight: 300;
 }
 
 .dashboardConsole {
-  position: relative;
-  top:30px;
-  left:30px;
+  margin-top: 40px;
   font-size: 20px;
   font-family: 'Avenir Next' !important;
 }
-/* .dashboardConsole button {
-  color: white;
-} */
-
 
 .buttonApprove {
   width: 140px;
@@ -44,13 +48,12 @@
   color: #000;
   background-color: #c4fffb;
   border: none;
-  /* border: 0.5px solid #000000; */
   border-radius: 45px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  }
+}
 
 .buttonApprove:hover {
   background-color: #0ee32a;
@@ -58,7 +61,6 @@
   color: #fff;
   transform: translateY(-7px);
 }
-
 
 .buttonReject {
   width: 140px;
@@ -76,7 +78,7 @@
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  }
+}
 
 .buttonReject:hover {
   background-color: red;
@@ -84,60 +86,6 @@
   color: #fff;
   transform: translateY(-7px);
 }
-
-/* 
-.button {
-display: inline-block;
-  border-radius: 4px;
-  background-color: #4663ac;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-family: 'Avenir Next' !important;
-  font-weight: 700px !important;
-  font-size: 24px;
-  padding: 20px;
-  width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-.button:hover {
-  background-color: #2EE59D;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-
-#second {
-  margin-left: 40px;
-} */
 
 .header {
   height: fit-content;
@@ -148,11 +96,10 @@ display: inline-block;
 }
 
 .profile__picture {
-  height: 240px;
-  width: 240px;
+  height: 120px;
+  width: 120px;
   border: 2px solid lightgrey;
   border-radius: 50%;
-  margin-top: 15px;
   margin-left: 20px;
 }
 
@@ -160,19 +107,8 @@ display: inline-block;
   font-family: 'Avenir Next' !important;
   font-size: 60px;
   position: relative;
-  left:20px;
+  left: 20px;
 }
-/* 
-.dashboardTable {
-  position: relative;
-  top:40px;
-  left:60px;
-  padding-right: 10px;
-} */
-
-/* .tableElements {
-  border-bottom: black solid 2px;
-} */
 
 .styledTable {
   border-collapse: collapse;
@@ -180,7 +116,7 @@ display: inline-block;
   margin-left: 12px;
   font-size: 15px;
   font-weight: 5px;
-  font-family: "Avenir Next" !important;
+  font-family: 'Avenir Next' !important;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
@@ -191,7 +127,7 @@ display: inline-block;
 }
 .styledTable th,
 .styledTable td {
-    padding: 12px 15px;
+  padding: 12px 15px;
 }
 .styledTable tbody tr {
   border-bottom: 1px solid #dddddd;
@@ -202,9 +138,5 @@ display: inline-block;
 }
 
 .styledTable tbody tr:last-of-type {
-  border-bottom: 2px solid #4663ac;;
+  border-bottom: 2px solid #4663ac;
 }
-/* .styledTable tbody tr.activeRow {
-  font-weight: bold;
-  color: #009879;
-} */

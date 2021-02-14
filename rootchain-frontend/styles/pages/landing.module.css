@@ -25,6 +25,15 @@
   margin-right: 5px;
 }
 
+.discoverHeaderButtons {
+  color: #4663ac;
+  font-size: 20px;
+  font-weight: 500;
+  width: 20vw;
+  display: flex;
+  justify-content: space-between;
+}
+
 .cover {
   background-color: #eff2f5;
   height: 100vh;
@@ -42,6 +51,12 @@
   width: 100%;
   margin-bottom: 50px;
   padding: 0 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.row__cards {
+  padding: 50px;
 }
 
 .cover__text {
@@ -56,6 +71,10 @@
   margin-bottom: 0;
 }
 
+.copyright {
+  font-size: 40px;
+}
+
 .subtitle {
   font-size: 30px;
   font-weight: 300;
@@ -63,6 +82,7 @@
 }
 
 .oauth__button {
+  margin-top: 1rem;
   width: 40%;
   background-color: #4663ac;
   border-radius: 50px;
