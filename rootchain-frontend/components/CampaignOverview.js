@@ -51,7 +51,7 @@ const CampaignOverview = ({
               Campaign Information:
             </h2>
             <div className={overviewStyles.overview__item}>
-              <h3> Contributions:</h3>
+              <h3> Contributers:</h3>
               <span>{uniqueContributors}</span>
             </div>
             <div className={overviewStyles.overview__item}>
