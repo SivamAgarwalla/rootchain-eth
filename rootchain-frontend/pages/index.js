@@ -16,9 +16,13 @@ const db = firebase.firestore();
 
 const Landing = () => {
   const firebase = useContext(FirebaseContext);
-  const { setUid, setDisplayName, setEmail, setPhotoURL } = useContext(
-    UserContext
-  );
+  const {
+    isAuthenticated,
+    setUid,
+    setDisplayName,
+    setEmail,
+    setPhotoURL,
+  } = useContext(UserContext);
   const [signInError, setSignInError] = useState(false);
 
   const signIn = async () => {
@@ -61,6 +65,20 @@ const Landing = () => {
     window.location.href = '/dashboard';
   };
 
+  const removeUserStateWrapper = () => {
+    localStorage.removeItem('uid');
+    localStorage.removeItem('displayName');
+    localStorage.removeItem('photoURL');
+    window.location.href = '/';
+  };
+
+  const logOut = async () => {
+    const loggedOut = await firebase.logOut();
+    if (loggedOut) {
+      removeUserStateWrapper();
+    }
+  };
+
   return (
     <Layout className={landingStyles.root}>
       <Head>
@@ -75,6 +93,19 @@ const Landing = () => {
             </a>
           </Link>
         </div>
+        {isAuthenticated && (
+          <div className={landingStyles.discoverHeaderButtons}>
+            <Link route="/discover">
+              <a style={{ margin: '1rem' }}>Campaigns </a>
+            </Link>
+            <Link route="/dashboard">
+              <a style={{ margin: '1rem' }}>Profile </a>
+            </Link>
+            <a style={{ margin: '1rem' }} onClick={logOut}>
+              Logout
+            </a>
+          </div>
+        )}
       </Header>
 
       <div className={landingStyles.cover}>
@@ -83,7 +114,9 @@ const Landing = () => {
             <LandingIllustration />
           </Col>
           <Col md={12} className={landingStyles.cover__text}>
-            <h1 className={landingStyles.title}>rootchain &copy;</h1>
+            <h1 className={landingStyles.title}>
+              rootchain <span className={landingStyles.copyright}>&copy;</span>
+            </h1>
             <h3 className={landingStyles.subtitle}>
               A transparent and secure smart-funding platform for Grassroots
               Political Organizations.
@@ -97,8 +130,11 @@ const Landing = () => {
         </Row>
       </div>
       <div className={landingStyles.features}>
-        <Row gutter={32} className={landingStyles.row}>
-          <Col md={8} className={landingStyles.feature__item}>
+        <Row
+          gutter={32}
+          className={`${landingStyles.row} ${landingStyles.row__cards}`}
+        >
+          <Col md={6} className={landingStyles.feature__item}>
             <h1>Transparency</h1>
             <img
               alt="knowledge-img"
@@ -106,13 +142,13 @@ const Landing = () => {
               className={landingStyles.feature__img}
             />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Our voting service allows contributors to have a say in what the
+              organization spends their money on. Campaign creators are not able
+              to use the funds raised for their organization unless it is
+              approved by more than 50% of contributors.
             </p>
           </Col>
-          <Col md={8} className={landingStyles.feature__item}>
+          <Col md={6} className={landingStyles.feature__item}>
             <h1>Security</h1>
             <img
               alt="security-img"
@@ -120,13 +156,13 @@ const Landing = () => {
               className={landingStyles.feature__img}
             />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              We built our payment and voting services using Ethereum Smart
+              Contracts. The immutable nature of Smart Contracts combined with
+              the cryptographic difficulty in mining blockchains in general
+              ensures that fraudulence is near impossible.
             </p>
           </Col>
-          <Col md={8} className={landingStyles.feature__item}>
+          <Col md={6} className={landingStyles.feature__item}>
             <h1>Decentralized</h1>
             <img
               alt="decentralized-img"
@@ -134,10 +170,10 @@ const Landing = () => {
               className={landingStyles.feature__img}
             />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              The decentralized nature of blockchain technology is a trend that
+              is revolutionizing the web— and we're in full support of this.
+              Without a centralized server in our backend services, users can
+              ensure that Rootchain can never tamper with existing data.
             </p>
           </Col>
         </Row>
