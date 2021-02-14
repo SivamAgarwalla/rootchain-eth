@@ -29,6 +29,7 @@ contract Campaign {
     uint256 public minimumContribution;
     mapping(address => bool) public campaignContributors;
     uint256 public campaignContributorsCount;
+    uint256 public uniqueContributors;
 
     modifier restricted() {
         require(msg.sender == campaignManager);
@@ -42,8 +43,13 @@ contract Campaign {
 
     function contribute() public payable {
         require(msg.value > minimumContribution);
-        campaignContributors[msg.sender] = true;
-        campaignContributorsCount++;
+        if (campaignContributors[msg.sender]) {
+            campaignContributorsCount++;
+        } else {
+            campaignContributors[msg.sender] = true;
+            uniqueContributors++;
+            campaignContributorsCount++;
+        }
     }
 
     function createSpendingRequest(
@@ -72,9 +78,7 @@ contract Campaign {
     function finalizeSpendingRequest(uint256 requestIndex) public restricted {
         SpendingRequest storage requestToFinalize = requests[requestIndex];
 
-        require(
-            requestToFinalize.approvalCount > (campaignContributorsCount / 2)
-        );
+        require(requestToFinalize.approvalCount > (uniqueContributors / 2));
         require(!requestToFinalize.complete);
 
         requestToFinalize.recipient.transfer(requestToFinalize.value);
@@ -89,6 +93,7 @@ contract Campaign {
             uint256,
             uint256,
             uint256,
+            uint256,
             address
         )
     {
@@ -97,6 +102,7 @@ contract Campaign {
             address(this).balance,
             requests.length,
             campaignContributorsCount,
+            uniqueContributors,
             campaignManager
         );
     }

@@ -9,6 +9,7 @@ const CampaignOverview = ({
   campaignBalance,
   requestCount,
   campaignContributorsCount,
+  uniqueContributors,
   campaign,
   campaignID,
 }) => {
@@ -50,9 +51,14 @@ const CampaignOverview = ({
               Campaign Information:
             </h2>
             <div className={overviewStyles.overview__item}>
+              <h3> Contributions:</h3>
+              <span>{uniqueContributors}</span>
+            </div>
+            <div className={overviewStyles.overview__item}>
               <h3>Total Contributions:</h3>
               <span>{campaignContributorsCount}</span>
             </div>
+
             <div className={overviewStyles.overview__item}>
               <h3>Current Funding Balance (Ether):</h3>
               <span>{balanceInEther}</span>

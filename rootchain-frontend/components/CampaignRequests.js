@@ -13,6 +13,7 @@ const CampaignRequests = ({
   campaignAddress,
   contractRequests,
   requestCount,
+  uniqueContributors,
   campaignContributorsCount,
 }) => {
   const [requests, setRequests] = useState([]);
@@ -61,6 +62,7 @@ const CampaignRequests = ({
             campaignAddress={campaignAddress}
             requestCount={requestCount}
             campaignContributorsCount={campaignContributorsCount}
+            uniqueContributors={uniqueContributors}
           />
         )}
       ></List>

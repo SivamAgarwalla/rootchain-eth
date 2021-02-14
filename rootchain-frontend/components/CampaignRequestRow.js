@@ -9,6 +9,7 @@ const CampaignRequestRow = ({
   request,
   campaignAddress,
   campaignContributorsCount,
+  uniqueContributors,
 }) => {
   const [errorApproveMessage, setErrorApproveMessage] = React.useState('');
   const [errorFinalizeMessage, setErrorFinalizeMessage] = React.useState('');
@@ -83,7 +84,7 @@ const CampaignRequestRow = ({
               <p>{`Recipient Address - ${request.recipientAddress}`}</p>
               <p
                 style={{ fontWeight: '800' }}
-              >{`${request.approvalCount}/${campaignContributorsCount} Approved`}</p>
+              >{`${request.approvalCount}/${uniqueContributors} Approved`}</p>
               {errorApproveMessage.length > 0 && (
                 <Alert
                   message='Error approving spending request. You have either already approved once or are not a campaign contributor.'

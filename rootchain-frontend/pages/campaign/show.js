@@ -34,6 +34,7 @@ const CampaignShow = ({
   minimumContribution,
   campaignBalance,
   campaignContributorsCount,
+  uniqueContributors,
   campaignManager,
   campaignAddress,
   requestCount,
@@ -67,6 +68,7 @@ const CampaignShow = ({
             campaignBalance={campaignBalance}
             requestCount={requestCount}
             campaignContributorsCount={campaignContributorsCount}
+            uniqueContributors={uniqueContributors}
             campaignManager={campaignManager}
             campaign={campaign}
             campaignID={campaignID}
@@ -102,6 +104,7 @@ const CampaignShow = ({
             contractRequests={contractRequests}
             requestCount={requestCount}
             campaignContributorsCount={campaignContributorsCount}
+            uniqueContributors={uniqueContributors}
           ></CamapignRequests>
         )}
       </div>
@@ -142,7 +145,8 @@ CampaignShow.getInitialProps = async (props) => {
     minimumContribution: campaignSummary['0'],
     campaignBalance: campaignSummary['1'],
     campaignContributorsCount: campaignSummary['3'],
-    campaignManager: campaignSummary['4'],
+    uniqueContributors: campaignSummary['4'],
+    campaignManager: campaignSummary['5'],
     campaignAddress: props.query.campaignAddress,
     requestCount: requestCount,
     contractRequests: campaignRequests,
