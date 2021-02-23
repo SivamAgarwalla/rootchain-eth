@@ -57,9 +57,9 @@ const CampaignRequests = ({
   return (
     <div>
       <PageHeader
-        className="requests-page-header"
-        title="Spending Requests"
-        subTitle="Find out how the campaign is spending its funds!"
+        className='requests-page-header'
+        title='Spending Requests'
+        subTitle='Find out how the campaign is spending its funds!'
         extra={[
           <Link route={`/campaign/request/new/${campaignAddress}`}>
             <a>
